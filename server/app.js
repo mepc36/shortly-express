@@ -99,8 +99,11 @@ app.post('/login', (req, res) => {
     .then((resolve, reject) => {
       if (utils.compareHash(req.body.password, resolve[0].password, resolve[0].salt) === true) {
         console.log('match!');
+        // go to /links if there's a match
+        // res.render('index');
+        res.redirect('/');
       } else {
-        console.log('Not a match!')
+        res.render('login');
       }
     })
 });
