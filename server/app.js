@@ -5,6 +5,9 @@ const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
 const models = require('./models');
+const db = require('./db/index');
+const schema = require('../server/db/config.js');
+const Promise = require('bluebird');
 
 const app = express();
 
@@ -14,8 +17,6 @@ app.use(partials());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
-
-
 
 app.get('/', 
 (req, res) => {
@@ -78,7 +79,31 @@ app.post('/links',
 // Write your authentication routes here
 /************************************************************/
 
+app.get('/signup', 
+(req, res) => {
+  res.render('signup');
+});
 
+app.get('/login', 
+(req, res) => {
+  res.render('login');
+});
+
+app.post('/signup', (req, res) => {
+  models.Users.create(req.body);
+  res.write('User created!');
+});
+
+app.post('/login', (req, res) => {
+  models.Users.getAll(req.body.username)
+    .then((resolve, reject) => {
+      if (utils.compareHash(req.body.password, resolve[0].password, resolve[0].salt) === true) {
+        console.log('match!');
+      } else {
+        console.log('Not a match!')
+      }
+    })
+});
 
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail

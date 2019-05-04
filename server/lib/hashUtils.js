@@ -12,6 +12,8 @@ const crypto = require('crypto');
  * @param {string} [salt] - The salt to add to the data before hashing.
  * @returns {string} A string with the hashed value.
  */
+
+ // 
 exports.createHash = (data, salt = '') => {
   let shasum = crypto.createHash('sha256');
   shasum.update(data + salt);
@@ -26,6 +28,8 @@ exports.createHash = (data, salt = '') => {
  * @returns {boolean} A boolean indicating if the attempted value
  * matches the stored value.
  */
+
+ // USE THIS FUNCTION WHEN AUTHORIZING:
 exports.compareHash = (attempted, stored, salt) => {
   return stored === this.createHash(attempted, salt);
 };

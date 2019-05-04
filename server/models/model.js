@@ -65,6 +65,10 @@ class Model {
    * containing the results of the query or is rejected with the the error that occurred
    * during the query.
    */
+
+   // options --> newUser
+   //
+   
   create(options) {
     let queryString = `INSERT INTO ${this.tablename} SET ?`;
     return executeQuery(queryString, options);
