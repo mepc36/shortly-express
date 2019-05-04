@@ -90,8 +90,32 @@ app.get('/login',
 });
 
 app.post('/signup', (req, res) => {
-  models.Users.create(req.body);
-  res.write('User created!');
+  // get the client user name (req.body.username);
+
+  // see if the client username exists in the database
+  models.Users.get(req.body.username)
+    .then((resolve, reject) => {
+      // if it does, redirect them to the signup page
+      console.log(resolve, reject);
+      if (resolve) {
+        res.redirect('/signup');
+        res.end();
+      } else {
+        // if it doesn't, create a new user and re direct to the root page
+        models.Users.create(req.body)
+        .then((resolve, reject) => {
+          // console.log("creating users");
+          // console.log(resolve, reject)
+          if(reject) {
+            res.redirect('/signup');
+            res.end();
+          } else {
+            res.redirect('/');
+            res.end();
+          }
+        })
+      }
+    });  
 });
 
 app.post('/login', (req, res) => {
@@ -102,8 +126,10 @@ app.post('/login', (req, res) => {
         // go to /links if there's a match
         // res.render('index');
         res.redirect('/');
+        res.end();
       } else {
         res.render('login');
+        res.end();
       }
     })
 });

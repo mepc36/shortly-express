@@ -63,7 +63,7 @@ describe('', function() {
 
   describe('Database Schema:', function() {
     it('contains a users table', function(done) {
-      var queryString = 'SELECT * FRM users';
+      var queryString = 'SELECT * FROM users';
       db.query(queryString, function(err, results) {
         if (err) { return done(err); }
 
@@ -123,7 +123,7 @@ describe('', function() {
     });
   });
 
-  xdescribe('Account Creation:', function() {
+  describe('Account Creation:', function() {
 
     it('signup creates a new user record', function(done) {
       var options = {
@@ -208,7 +208,7 @@ describe('', function() {
     });
   });
 
-  describe('Account Login:', function() {
+  xdescribe('Account Login:', function() {
 
     beforeEach(function(done) {
       var options = {
@@ -277,7 +277,7 @@ describe('', function() {
     });
   });
 
-  describe('Sessions Schema:', function() {
+  xdescribe('Sessions Schema:', function() {
     it('contains a sessions table', function(done) {
       var queryString = 'SELECT * FROM sessions';
       db.query(queryString, function(err, results) {
@@ -325,7 +325,7 @@ describe('', function() {
     });
   });
 
-  describe('Express Middleware', function() {
+  xdescribe('Express Middleware', function() {
     var cookieParser = require('../server/middleware/cookieParser.js');
     var createSession = require('../server/middleware/auth.js').createSession;
 
@@ -480,7 +480,7 @@ describe('', function() {
     });
   });
 
-  describe('Sessions and cookies', function() {
+  xdescribe('Sessions and cookies', function() {
     var requestWithSession;
     var cookieJar;
 
@@ -570,7 +570,7 @@ describe('', function() {
     });
   });
 
-  describe('Privileged Access:', function() {
+  xdescribe('Privileged Access:', function() {
 
     it('Redirects to login page if a user tries to access the main page and is not signed in', function(done) {
       request('http://127.0.0.1:4568/', function(error, res, body) {
@@ -597,7 +597,7 @@ describe('', function() {
     });
   });
 
-  describe('Link creation:', function() {
+  xdescribe('Link creation:', function() {
 
     var cookies = request.jar();
     var requestWithSession = request.defaults({ jar: cookies });
@@ -610,7 +610,7 @@ describe('', function() {
       }
     };
 
-    beforeEach(function(done) {
+    xbeforeEach(function(done) {
       var options = {
         'method': 'POST',
         'followAllRedirects': true,
